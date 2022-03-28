@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="en">
   <head>
       <meta charset="UTF-8">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>{% block title %}Магазин{% endblock %}</title>
+      <!-- Compressed CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/css/foundation.min.css" crossorigin="anonymous">
   </head>
   <body>
+<!--      <ul class="dropdown menu" data-dropdown-menu>-->
+<!--          <li>-->
+<!--            <a href="/">Главная</a>-->
+<!--            <ul class="menu">-->
+<!--              <li><a href="#">Item 1A</a></li>-->
+<!--            </ul>-->
+<!--          </li>-->
+<!--          <li><a href="#">Item 2</a></li>-->
+<!--          <li><a href="#">Item 3</a></li>-->
+<!--          <li><a href="#">Item 4</a></li>-->
+<!--        </ul>-->
+
     <a href="/">Главная</a><br>
     {% for category in menu %}
         <a href="{{ category.get_absolute_url }}">{{ category.title }}</a><br>
@@ -12,7 +28,15 @@
             <a href="{{ section.get_absolute_url }}">{{ section.title }}</a><br>
         {% endfor %}
     {% endfor %}
+    <a href="/selections/">Подборки</a><br>
     <br><br><br>
+
     {% block content %}{% endblock %}
+
+    <!-- Compressed JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/js/foundation.min.js" crossorigin="anonymous"></script>
+    <script>
+      $(document).foundation();
+    </script>
   </body>
 </html>

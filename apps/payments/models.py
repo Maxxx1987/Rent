@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 
 
@@ -30,3 +31,29 @@ class Purchase(models.Model):
         verbose_name = 'Услуга'
         verbose_name_plural = 'Услуги'
         ordering = ('-id',)
+
+
+class Order(models.Model):
+    STATUSES = (
+        ('active', 'Активный'),
+        ('complete', 'Завершено'),
+        ('void', 'Отменен'),
+    )
+    identifier = models.UUIDField(default=uuid.uuid4, editable=False)
+    user = models.ForeignKey('auth.User', on_delete=models.PROTECT)
+    payment = models.ForeignKey('payments.Payment', on_delete=models.SET_NULL, blank=True, null=True)
+    rent_from = models.DateTimeField(blank=True, null=True)
+    rent_till = models.DateTimeField(blank=True, null=True)
+    status = models.CharField('Статус', max_length=16, choices=STATUSES, default='active')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+        ordering = ('-id',)
+
+
+class ProductOrder(models.Model):
+    order = models.ForeignKey('payments.Order', on_delete=models.PROTECT)
+    product = models.ForeignKey('products.Product', on_delete=models.PROTECT)
+    count = models.PositiveIntegerField('Кол-во', default=1)

@@ -1,3 +1,15 @@
 from django.contrib import admin
 
-# Register your models here.
+from apps.products.models import Product, ProductInfo
+
+
+class ProductInLine(admin.TabularInline):
+    model = ProductInfo
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title',)
+    inlines = [ProductInLine]
+
+

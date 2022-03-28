@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}{{ product.title }}{% endblock %}
+
+{% block content %}
+
+<h2>{{ product.title }}</h2>
+
+<img src="/media/{{ product.image }}">
+
+<table>
+    <tr>
+        <td>Описание</td>
+        <td>{{ product.description }}</td>
+    </tr>
+    <tr>
+        <td>Цена</td>
+        <td>{{ product.price }}</td>
+    </tr>
+    <tr>
+        <td>Рейтинг</td>
+        <td>{{ product_avg_rating }}</td>
+    </tr>
+</table>
+<br>
+
+{% for p_i in product_info %}
+
+{{ p_i.name }}:{{ p_i.value }}<br>
+
+{% endfor %}
+
+{% if order_form %}
+<form action="/order/" method="POST">
+    {% csrf_token %}
+	{{ order_form.as_p }}
+	<input type="submit" value="В корзину">
+</form>
+{% else %}
+	<a href="/order/list/">Перейти в корзину</a>
+{% endif %}
+<br>
+
+{% if my_review %}
+    {{ my_review.text }} ({{ my_review.rating }})
+    <a href="{{ my_review.get_absolute_url }}update/">Изменить</a>
+    <form action="{{ my_review.get_absolute_url }}delete/" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Удалить">
+    </form>
+{% else %}
+    <a href="{{ product.get_absolute_url }}add_review/">Оставить отзыв</a>
+{% endif %}
+<br><br>
+
+{% for review in review_list %}
+    {{ review.text }} ({{ review.rating }})<br>
+{% endfor %}
+<br>
+{% include 'pagination.html' %}
+<br>
+
+{% endblock %}

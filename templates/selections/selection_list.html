@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="/selections/add/">Создать подборку</a><br>
+<ul>
+    {% for selection in selection_list %}
+        <li>
+            <a href="{{ selection.get_absolute_url }}">{{ selection.name }}</a>
+            <form action="{{ selection.get_absolute_url }}delete/" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Удалить">
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+{% include 'pagination.html' %}
+{% endblock %}
