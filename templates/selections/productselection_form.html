@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
 <form method="POST" enctype="multipart/form-data">
 
 	<!-- Security token -->
@@ -15,6 +11,4 @@
 
 	<input type="submit" value="Сохранить">
 </form>
-
-</body>
-</html>
+{% endblock %}

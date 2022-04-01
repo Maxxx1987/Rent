@@ -3,5 +3,20 @@
 {% block title %}{{ selection.name }}{% endblock %}
 
 {% block content %}
-    <h3>{{ selection.name }}</h3>
+    <h3>{{ selection.name }}</h3><br>
+
+    <form method="POST" enctype="multipart/form-data" action="{{ selection.get_absolute_url }}products/add/">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Добавить">
+    </form>
+<hr>
+
+    {% for item in productselection_list %}
+        {{ item.product }}
+        <form action="{{ item.get_absolute_url }}delete/" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Удалить">
+        </form>
+    {% endfor %}<br>
 {% endblock %}

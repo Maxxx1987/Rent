@@ -29,6 +29,7 @@ urlpatterns = [
     path('order/', include('apps.payments.urls')),
     path('reviews/', include('apps.reviews.urls')),
     path('selections/', include('apps.selections.urls')),
+    path('search/', include('apps.search.urls')),
 
 
     #

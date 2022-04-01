@@ -15,3 +15,6 @@ class ProductSelectionForm(forms.ModelForm):
     class Meta:
         model = ProductSelection
         fields = ['selection', 'product']
+        widgets = {
+            'selection': forms.HiddenInput()
+        }

@@ -19,3 +19,6 @@ class Selection(models.Model):
 class ProductSelection(models.Model):
     selection = models.ForeignKey('selections.Selection', on_delete=models.PROTECT)
     product = models.ForeignKey('products.Product', on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return f'/selections/{self.selection_id}/products/{self.id}/'
