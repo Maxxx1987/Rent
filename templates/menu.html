@@ -1,0 +1,26 @@
+<div class="top-bar">
+    <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+            <li class="menu-text">Rent</li>
+            <li><a href="/">Главная</a></li>
+            {% for category in menu %}
+                <li>
+                    <a href="{{ category.get_absolute_url }}">{{ category.title }}</a>
+                    <ul class="menu vertical">
+                        {% for section in category.sections.all %}
+                            <li><a href="{{ section.get_absolute_url }}">{{ section.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+            <li><a href="/selections/">Подборки</a></li>
+            <li><a href="/search/">Поиск</a></li>
+        </ul>
+    </div>
+    <div class="top-bar-right">
+        <ul class="menu">
+            <li><input type="search" placeholder="Поиск"></li>
+            <li><button type="button" class="button">Поиск</button></li>
+        </ul>
+    </div>
+</div>

@@ -35,7 +35,7 @@ class Section(models.Model):
         ordering = ('order', 'slug')
 
     def __str__(self):
-        return self.title
+        return f'{self.title} ({self.category.title})'
 
     def get_absolute_url(self):
         return f'/catalog/{self.category.slug}/{self.slug}/'

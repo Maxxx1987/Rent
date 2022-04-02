@@ -3,23 +3,16 @@ from django.views.generic import ListView, TemplateView
 from apps.catalog.models import Category, Section
 
 
-class MenuMixin:
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-        context['menu'] = Category.objects.all()
-        return context
-
-
-class IndexView(MenuMixin, TemplateView):
+class IndexView(TemplateView):
     template_name = 'index.html'
 
 
-class CategoryListView(MenuMixin, ListView):
+class CategoryListView(ListView):
     queryset = Category.objects.filter(is_active=True)
     context_object_name = 'category_list'
 
 
-class SectionListView(MenuMixin, ListView):
+class SectionListView(ListView):
     queryset = Section.objects.filter(is_active=True)
     context_object_name = 'section_list'
 
