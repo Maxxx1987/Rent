@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if comp %}
+<form action="/comparison/user/{{ comp.id }}/delete/" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Удалить все товары из сравнения">
+</form>
+<br><br>
+{% endif %}
+
+{% for comparison in comparison_list %}
+    {{ comparison.product.title }}<br>
+    <form action="/comparison/{{ comparison.id }}/delete/" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Удалить из сравнения">
+    </form>
+    <br><hr><br>
+{% endfor %}
+
+{% endblock %}

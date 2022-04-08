@@ -31,6 +31,17 @@
 {{ p_i.name }}:{{ p_i.value }}<br>
 
 {% endfor %}
+<br>
+{% if comparison_form %}
+<form action="/comparison/" method="POST">
+    {% csrf_token %}
+	{{ comparison_form.as_p }}
+	<input type="submit" value="Добавить в сравнение">
+</form>
+{% else %}
+    <a href="/comparison/list/">Перейти в сравнение</a>
+{% endif %}
+<br>
 
 {% if order_form %}
 <form action="/order/" method="POST">

@@ -3,6 +3,8 @@ from django.views.generic import ListView, DetailView
 from django.db.models import Avg, Q
 
 from apps.catalog.views import MenuMixin
+from apps.comparison.forms import ComparisonProductForm
+from apps.comparison.models import ComparisonProduct
 from apps.products.models import Product, ProductInfo
 from apps.payments.form import ProductOrderForm
 from apps.payments.models import ProductOrder
@@ -46,4 +48,13 @@ class ProductDetailView(MenuMixin, DetailView):
         )
         context['product_avg_rating'] = round(agg_rating['rating'], 1) if agg_rating['rating'] else '-'
         context['my_review'] = Review.objects.filter(product=self.object, user=self.request.user).first()
+
+        p_comparison = (
+            ComparisonProduct.objects
+            .filter(product=self.object, comparison__user=self.request.user)
+            .first()
+        )
+        if not p_comparison:
+            context['comparison_form'] = ComparisonProductForm(initial={'product': self.object.id})
+
         return context
